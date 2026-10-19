@@ -48,6 +48,25 @@ ${grounded.limitations.map((l) => `- *${l}*`).join('\n')}
   };
 }
 
+import fs from 'fs';
+import path from 'path';
+
+function resolveKey(keyName: string): string | undefined {
+  try {
+    const envPath = path.resolve(process.cwd(), '.env.local');
+    if (fs.existsSync(envPath)) {
+      const content = fs.readFileSync(envPath, 'utf8');
+      const match = content.match(new RegExp(`^${keyName}=(.*)$`, 'm'));
+      if (match && match[1]) {
+        return match[1].trim();
+      }
+    }
+  } catch {
+    // ignore
+  }
+  return process.env[keyName]?.trim();
+}
+
 /**
  * Generate an AI response using Gemini or OpenAI with transparent deterministic fallback.
  */
@@ -55,8 +74,8 @@ export async function generateAIResponse(
   userQuestion: string,
   grounded: GroundedAnalysis
 ): Promise<AIResponsePayload> {
-  const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-  const openaiKey = process.env.OPENAI_API_KEY;
+  const geminiKey = resolveKey('GEMINI_API_KEY') || resolveKey('GOOGLE_API_KEY');
+  const openaiKey = resolveKey('OPENAI_API_KEY');
 
   const systemPrompt = `You are "DukaanAI Business Assistant", an expert AI Business Growth Copilot for Indian Kirana and small retail store owners.
 You must adhere strictly to these rules:
@@ -116,7 +135,8 @@ Please write a clear, helpful response explaining this to the shopkeeper.`;
             suggestedFollowUps: grounded.suggestedFollowUps,
           };
         }
-      } catch (e) {
+      } catch (e: any) {
+        console.warn(`[Gemini Error] ${modelName}:`, e?.message || e);
         // try next model
       }
     }
