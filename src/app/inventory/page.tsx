@@ -26,7 +26,6 @@ export default function InventoryPage() {
 
   const inventory = calculateInventoryHealth(dataset, timeRange);
 
-  // Filter products
   const filteredProducts = inventory.filter((item) => {
     const matchesFilter = filterStatus === 'All' || item.stockHealth === filterStatus;
     const matchesSearch =
@@ -35,7 +34,6 @@ export default function InventoryPage() {
     return matchesFilter && matchesSearch;
   });
 
-  // Headline stats
   const totalItems = inventory.length;
   const criticalCount = inventory.filter((i) => i.stockHealth === 'Critical' || i.stockHealth === 'Out of Stock').length;
   const lowCount = inventory.filter((i) => i.stockHealth === 'Low Stock').length;
@@ -50,58 +48,60 @@ export default function InventoryPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">Products & Inventory Intelligence</h1>
-          <p className="text-xs text-slate-500">
+          <h1 className="text-[20px] font-extrabold text-[#18181B] tracking-tight">
+            Products & Inventory Intelligence
+          </h1>
+          <p className="text-[12px] text-[#71717A] font-medium">
             Real-time stock velocity, run-out estimates, and replenishment recommendations
           </p>
         </div>
         <Link
           href={`/assistant?q=${encodeURIComponent('Which products should I restock right now?')}`}
-          className="flex items-center gap-1.5 bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-sm transition-all self-start sm:self-auto"
+          className="flex items-center gap-1.5 bg-[#18181B] hover:bg-black text-white text-[12px] font-bold px-4 py-2 rounded-full transition-colors self-start sm:self-auto"
         >
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Ask AI Restock Plan</span>
+          <Sparkles className="w-3.5 h-3.5 text-[#FDE047]" />
+          <span>Ask Restock Plan</span>
         </Link>
       </div>
 
-      {/* Overview Cards */}
+      {/* Overview Cards (CollectiveOS Style) */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
-          <p className="text-xs text-slate-500 font-medium">Total Products</p>
-          <p className="text-2xl font-black text-slate-900 mt-1">{totalItems}</p>
-          <p className="text-xs text-slate-500 mt-1">Across 6 Indian FMCG categories</p>
+        <div className="bg-white p-5 rounded-[20px] border border-[#EBEBEF]">
+          <p className="text-[11px] font-bold text-[#71717A] uppercase tracking-wider">Catalogued Items</p>
+          <p className="text-[26px] font-extrabold text-[#18181B] tracking-tight mt-1">{totalItems}</p>
+          <p className="text-[11px] text-[#71717A] font-medium mt-1">Across 6 FMCG categories</p>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
-          <p className="text-xs text-slate-500 font-medium">Critical Stockouts</p>
-          <p className="text-2xl font-black text-rose-600 mt-1">{criticalCount}</p>
-          <p className="text-xs text-rose-700 mt-1 font-medium">Less than {2} days supply remaining</p>
+        <div className="bg-white p-5 rounded-[20px] border border-[#EBEBEF]">
+          <p className="text-[11px] font-bold text-[#DC2626] uppercase tracking-wider">Critical Stockouts</p>
+          <p className="text-[26px] font-extrabold text-[#DC2626] tracking-tight mt-1">{criticalCount}</p>
+          <p className="text-[11px] text-[#DC2626] font-semibold mt-1">Less than 2 days supply</p>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
-          <p className="text-xs text-slate-500 font-medium">Total Inventory Capital</p>
-          <p className="text-2xl font-black text-slate-900 mt-1">{formatINR(totalCapitalTiedUp)}</p>
-          <p className="text-xs text-slate-500 mt-1">Wholesale cost value on shelf</p>
+        <div className="bg-white p-5 rounded-[20px] border border-[#EBEBEF]">
+          <p className="text-[11px] font-bold text-[#71717A] uppercase tracking-wider">Total Inventory Capital</p>
+          <p className="text-[26px] font-extrabold text-[#18181B] tracking-tight mt-1">{formatINR(totalCapitalTiedUp)}</p>
+          <p className="text-[11px] text-[#71717A] font-medium mt-1">Wholesale cost on shelf</p>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
-          <p className="text-xs text-slate-500 font-medium">Tied Up in Slow Movers</p>
-          <p className="text-2xl font-black text-purple-600 mt-1">{formatINR(slowCapitalTiedUp)}</p>
-          <p className="text-xs text-purple-700 mt-1 font-medium">{slowCount} products with &gt;45d supply</p>
+        <div className="bg-white p-5 rounded-[20px] border border-[#EBEBEF]">
+          <p className="text-[11px] font-bold text-[#7E22CE] uppercase tracking-wider">Tied Up in Slow Movers</p>
+          <p className="text-[26px] font-extrabold text-[#7E22CE] tracking-tight mt-1">{formatINR(slowCapitalTiedUp)}</p>
+          <p className="text-[11px] text-[#7E22CE] font-semibold mt-1">{slowCount} items with &gt;45d supply</p>
         </div>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="bg-white p-4 rounded-[20px] border border-[#EBEBEF] flex flex-col sm:flex-row items-center justify-between gap-3">
         {/* Search */}
         <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-[#A1A1AA] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search product or category..."
-            className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 focus:outline-hidden focus:border-sky-500"
+            className="w-full pl-10 pr-4 py-2 text-[12px] rounded-full bg-[#F4F4F6] border border-[#EBEBEF] focus:outline-hidden focus:border-[#18181B] font-medium text-[#18181B]"
           />
         </div>
 
@@ -111,10 +111,10 @@ export default function InventoryPage() {
             <button
               key={status}
               onClick={() => setFilterStatus(status)}
-              className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+              className={`px-3.5 py-1.5 rounded-full text-[12px] font-semibold whitespace-nowrap transition-colors ${
                 filterStatus === status
-                  ? 'bg-slate-900 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-[#18181B] text-white'
+                  : 'bg-[#F4F4F6] text-[#71717A] hover:text-[#18181B]'
               }`}
             >
               {status}
@@ -124,10 +124,10 @@ export default function InventoryPage() {
       </div>
 
       {/* Products Table */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+      <div className="bg-white rounded-[20px] border border-[#EBEBEF] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 border-b border-slate-200">
+            <thead className="bg-[#F4F4F6] text-[#71717A] border-b border-[#EBEBEF]">
               <tr>
                 <th className="py-3 px-4 font-semibold">Product & Category</th>
                 <th className="py-3 px-3 font-semibold text-right">Cost Price</th>
@@ -140,29 +140,29 @@ export default function InventoryPage() {
                 <th className="py-3 px-4 font-semibold text-right">Tied-Up Capital</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-[#EBEBEF]">
               {filteredProducts.map((p) => (
-                <tr key={p.id} className="hover:bg-slate-50/80 transition-colors">
-                  <td className="py-3 px-4">
-                    <p className="font-semibold text-slate-900">{p.name}</p>
-                    <p className="text-[11px] text-slate-500">{p.category} • Unit: {p.unit}</p>
+                <tr key={p.id} className="hover:bg-[#F9F9FB] transition-colors">
+                  <td className="py-3.5 px-4">
+                    <p className="font-bold text-[#18181B] text-[13px]">{p.name}</p>
+                    <p className="text-[11px] text-[#71717A] font-medium">{p.category} • Unit: {p.unit}</p>
                   </td>
-                  <td className="py-3 px-3 text-right font-medium text-slate-600">{formatINR(p.costPrice)}</td>
-                  <td className="py-3 px-3 text-right font-semibold text-slate-900">{formatINR(p.sellingPrice)}</td>
-                  <td className="py-3 px-3 text-right font-bold text-slate-800">
+                  <td className="py-3 px-3 text-right font-medium text-[#71717A]">{formatINR(p.costPrice)}</td>
+                  <td className="py-3 px-3 text-right font-bold text-[#18181B]">{formatINR(p.sellingPrice)}</td>
+                  <td className="py-3 px-3 text-right font-extrabold text-[#18181B]">
                     {p.currentStock} {p.unit}s
                   </td>
-                  <td className="py-3 px-3 text-right font-medium text-slate-600">
+                  <td className="py-3 px-3 text-right font-medium text-[#52525B]">
                     {p.salesVelocity7Days.toFixed(1)} / day
                   </td>
                   <td className="py-3 px-3 text-right">
                     <span
-                      className={`font-semibold ${
+                      className={`font-bold ${
                         p.daysOfStockRemaining <= 2
-                          ? 'text-rose-600 font-bold'
+                          ? 'text-[#DC2626]'
                           : p.daysOfStockRemaining <= 5
-                          ? 'text-amber-600'
-                          : 'text-slate-700'
+                          ? 'text-[#D97706]'
+                          : 'text-[#52525B]'
                       }`}
                     >
                       {p.daysOfStockRemaining >= 99 ? '>45 days' : `~${p.daysOfStockRemaining} days`}
@@ -170,29 +170,29 @@ export default function InventoryPage() {
                   </td>
                   <td className="py-3 px-3 text-center">
                     <span
-                      className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
                         p.stockHealth === 'Critical'
-                          ? 'bg-rose-100 text-rose-800'
+                          ? 'bg-[#FEF2F2] text-[#DC2626] border border-[#FEE2E2]'
                           : p.stockHealth === 'Low Stock'
-                          ? 'bg-amber-100 text-amber-800'
+                          ? 'bg-[#FFFBEB] text-[#D97706] border border-[#FEF3C7]'
                           : p.stockHealth === 'Slow Moving'
-                          ? 'bg-purple-100 text-purple-800'
-                          : 'bg-emerald-100 text-emerald-800'
+                          ? 'bg-[#F3E8FF] text-[#7E22CE] border border-[#E9D5FF]'
+                          : 'bg-[#ECFDF5] text-[#059669] border border-[#D1FAE5]'
                       }`}
                     >
                       {p.stockHealth}
                     </span>
                   </td>
-                  <td className="py-3 px-3 text-right font-bold text-sky-700">
+                  <td className="py-3 px-3 text-right font-bold">
                     {p.suggestedReorderQuantity > 0 ? (
-                      <span className="bg-sky-50 border border-sky-200 px-2 py-0.5 rounded">
+                      <span className="bg-[#F0F9FF] border border-[#BAE6FD] text-[#0284C7] px-2.5 py-0.5 rounded-full text-[11px]">
                         +{p.suggestedReorderQuantity} {p.unit}s
                       </span>
                     ) : (
-                      <span className="text-slate-400 font-normal">None</span>
+                      <span className="text-[#A1A1AA] font-medium">—</span>
                     )}
                   </td>
-                  <td className="py-3 px-4 text-right font-semibold text-slate-900">
+                  <td className="py-3 px-4 text-right font-extrabold text-[#18181B]">
                     {formatINR(p.capitalTiedUp)}
                   </td>
                 </tr>

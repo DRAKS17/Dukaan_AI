@@ -67,7 +67,6 @@ export default function SettingsDataPage() {
   const handleApplyDataset = () => {
     if (!validationResult || validationResult.data.length === 0) return;
 
-    // Create custom dataset with validated products, preserving simulated orders structure
     const updatedDataset: StoreDataset = {
       ...dataset,
       storeName: 'My Custom Retail Store (Uploaded)',
@@ -84,8 +83,10 @@ export default function SettingsDataPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">Data Management & CSV Ingestion</h1>
-          <p className="text-xs text-slate-500">
+          <h1 className="text-[20px] font-extrabold text-[#18181B] tracking-tight">
+            Data Management & CSV Ingestion
+          </h1>
+          <p className="text-[12px] text-[#71717A] font-medium">
             Upload custom merchant inventory data, validate schema compliance, and download sample templates
           </p>
         </div>
@@ -98,7 +99,7 @@ export default function SettingsDataPage() {
               setCsvContent('');
               setStatusMessage('Reset to default Shree Ganesh Kirana demo dataset.');
             }}
-            className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-3 py-2 rounded-lg transition-all shadow-xs"
+            className="flex items-center gap-1.5 bg-[#18181B] hover:bg-black text-white text-[12px] font-bold px-4 py-2 rounded-full transition-colors"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset to Default Demo Shop</span>
@@ -108,8 +109,8 @@ export default function SettingsDataPage() {
 
       {/* Success Notification */}
       {statusMessage && (
-        <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs p-4 rounded-xl flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+        <div className="bg-[#ECFDF5] border border-[#D1FAE5] text-[#065F46] text-[12px] p-4 rounded-[20px] flex items-center gap-2 font-medium">
+          <CheckCircle2 className="w-4 h-4 text-[#10B981] shrink-0" />
           <span>{statusMessage}</span>
         </div>
       )}
@@ -117,19 +118,21 @@ export default function SettingsDataPage() {
       {/* Grid: Download Templates & Upload */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Sample Templates Card */}
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between">
+        <div className="bg-white p-6 rounded-[20px] border border-[#EBEBEF] flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <div className="p-2 bg-sky-50 text-sky-600 rounded-lg">
+            <div className="flex items-center gap-2.5 mb-2">
+              <div className="w-9 h-9 rounded-full bg-[#F0F9FF] text-[#0284C7] flex items-center justify-center border border-[#BAE6FD]">
                 <FileText className="w-4 h-4" />
               </div>
-              <h3 className="text-sm font-bold text-slate-800">Download CSV Templates</h3>
+              <h3 className="text-[15px] font-extrabold text-[#18181B] tracking-tight">
+                Download CSV Templates
+              </h3>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed mb-4">
+            <p className="text-[12px] text-[#52525B] leading-relaxed mb-4 font-medium">
               Inspect the exact schema required for products and historical orders. Download the ready-to-use CSV template files to test custom datasets.
             </p>
 
-            <div className="bg-slate-50 p-3 rounded-lg border border-slate-100 text-[11px] font-mono text-slate-600 mb-4 overflow-x-auto">
+            <div className="bg-[#F9F9FB] p-3 rounded-xl border border-[#EBEBEF] text-[11px] font-mono text-[#52525B] mb-4 overflow-x-auto">
               product_id,product_name,category,cost_price,selling_price,current_stock,reorder_level
             </div>
           </div>
@@ -137,41 +140,43 @@ export default function SettingsDataPage() {
           <div className="flex flex-wrap items-center gap-2.5">
             <button
               onClick={handleDownloadSampleProducts}
-              className="flex items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs font-semibold px-3 py-2 rounded-lg transition-all shadow-xs"
+              className="flex items-center gap-2 bg-white hover:bg-[#F4F4F6] text-[#18181B] border border-[#EBEBEF] text-[12px] font-bold px-4 py-2 rounded-full transition-colors"
             >
-              <Download className="w-3.5 h-3.5 text-sky-600" />
+              <Download className="w-3.5 h-3.5 text-[#0284C7]" />
               <span>Products Template (.csv)</span>
             </button>
             <button
               onClick={handleDownloadSampleOrders}
-              className="flex items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs font-semibold px-3 py-2 rounded-lg transition-all shadow-xs"
+              className="flex items-center gap-2 bg-white hover:bg-[#F4F4F6] text-[#18181B] border border-[#EBEBEF] text-[12px] font-bold px-4 py-2 rounded-full transition-colors"
             >
-              <Download className="w-3.5 h-3.5 text-indigo-600" />
+              <Download className="w-3.5 h-3.5 text-[#18181B]" />
               <span>Orders Template (.csv)</span>
             </button>
           </div>
         </div>
 
         {/* Upload Card */}
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between">
+        <div className="bg-white p-6 rounded-[20px] border border-[#EBEBEF] flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+            <div className="flex items-center gap-2.5 mb-2">
+              <div className="w-9 h-9 rounded-full bg-[#F4F4F6] text-[#18181B] flex items-center justify-center border border-[#EBEBEF]">
                 <UploadCloud className="w-4 h-4" />
               </div>
-              <h3 className="text-sm font-bold text-slate-800">Upload Merchant Products CSV</h3>
+              <h3 className="text-[15px] font-extrabold text-[#18181B] tracking-tight">
+                Upload Merchant Products CSV
+              </h3>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed mb-4">
+            <p className="text-[12px] text-[#52525B] leading-relaxed mb-4 font-medium">
               Select a CSV file containing your product catalogue, stock levels, and prices. The schema is validated client-side with row-level error reporting.
             </p>
           </div>
 
-          <label className="border-2 border-dashed border-slate-300 hover:border-sky-500 rounded-xl p-6 text-center cursor-pointer transition-colors bg-slate-50/50 hover:bg-sky-50/20 block">
-            <UploadCloud className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-            <span className="text-xs font-semibold text-slate-700 block">
+          <label className="border-2 border-dashed border-[#EBEBEF] hover:border-[#18181B] rounded-[20px] p-6 text-center cursor-pointer transition-colors bg-[#F9F9FB] block">
+            <UploadCloud className="w-8 h-8 text-[#A1A1AA] mx-auto mb-2" />
+            <span className="text-[13px] font-bold text-[#18181B] block">
               Click to choose CSV file or drag and drop
             </span>
-            <span className="text-[11px] text-slate-400 block mt-0.5">
+            <span className="text-[11px] text-[#71717A] font-medium block mt-0.5">
               Supports .csv files up to 5MB
             </span>
             <input
@@ -186,14 +191,14 @@ export default function SettingsDataPage() {
 
       {/* Validation Feedback & Preview Section */}
       {validationResult && (
-        <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+        <div className="bg-white rounded-[20px] border border-[#EBEBEF] p-6 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#EBEBEF] pb-4">
             <div>
-              <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-                <Database className="w-4 h-4 text-sky-600" />
+              <h3 className="text-[15px] font-extrabold text-[#18181B] tracking-tight flex items-center gap-2">
+                <Database className="w-4 h-4 text-[#0284C7]" />
                 CSV Validation Summary
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-[12px] text-[#71717A] font-medium">
                 {validationResult.validRowsCount} valid rows • {validationResult.rejectedRowsCount} rejected rows
               </p>
             </div>
@@ -201,9 +206,9 @@ export default function SettingsDataPage() {
             {validationResult.validRowsCount > 0 && (
               <button
                 onClick={handleApplyDataset}
-                className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-all shadow-xs"
+                className="flex items-center gap-1.5 bg-[#18181B] hover:bg-black text-white text-[12px] font-bold px-5 py-2.5 rounded-full transition-colors"
               >
-                <CheckCircle2 className="w-4 h-4" />
+                <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
                 <span>Apply & Switch to Uploaded Inventory ({validationResult.validRowsCount} Items)</span>
               </button>
             )}
@@ -211,12 +216,12 @@ export default function SettingsDataPage() {
 
           {/* Error List if any */}
           {validationResult.errors.length > 0 && (
-            <div className="bg-rose-50 border border-rose-200 rounded-lg p-4 space-y-2">
-              <h4 className="text-xs font-bold text-rose-800 flex items-center gap-1.5">
-                <AlertCircle className="w-4 h-4 text-rose-600" />
+            <div className="bg-[#FEF2F2] border border-[#FEE2E2] rounded-[16px] p-4 space-y-2">
+              <h4 className="text-[12px] font-bold text-[#DC2626] flex items-center gap-1.5">
+                <AlertCircle className="w-4 h-4 text-[#DC2626]" />
                 Validation Errors Detected ({validationResult.errors.length} issues):
               </h4>
-              <ul className="text-xs text-rose-700 space-y-1 list-disc list-inside">
+              <ul className="text-[12px] text-[#B91C1C] space-y-1 list-disc list-inside font-medium">
                 {validationResult.errors.slice(0, 5).map((err, idx) => (
                   <li key={idx}>
                     Row {err.rowNumber} ({err.field}): {err.message}
@@ -229,12 +234,12 @@ export default function SettingsDataPage() {
           {/* Valid Items Preview Table */}
           {validationResult.validRowsCount > 0 && (
             <div>
-              <h4 className="text-xs font-bold text-slate-700 mb-2">
+              <h4 className="text-[13px] font-bold text-[#18181B] mb-2">
                 Preview Parsed Valid Products:
               </h4>
-              <div className="overflow-x-auto border border-slate-200 rounded-lg">
+              <div className="overflow-x-auto border border-[#EBEBEF] rounded-[16px]">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-50 text-slate-500 border-b border-slate-200">
+                  <thead className="bg-[#F4F4F6] text-[#71717A] border-b border-[#EBEBEF]">
                     <tr>
                       <th className="py-2.5 px-3 font-semibold">ID</th>
                       <th className="py-2.5 px-3 font-semibold">Product Name</th>
@@ -245,16 +250,16 @@ export default function SettingsDataPage() {
                       <th className="py-2.5 px-3 font-semibold text-right">Reorder Level</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-[#EBEBEF]">
                     {validationResult.data.slice(0, 10).map((p) => (
                       <tr key={p.id}>
-                        <td className="py-2 px-3 font-mono text-slate-500">{p.id}</td>
-                        <td className="py-2 px-3 font-medium text-slate-900">{p.name}</td>
-                        <td className="py-2 px-3 text-slate-600">{p.category}</td>
-                        <td className="py-2 px-3 text-right text-slate-600">{formatINR(p.costPrice)}</td>
-                        <td className="py-2 px-3 text-right font-semibold text-slate-900">{formatINR(p.sellingPrice)}</td>
-                        <td className="py-2 px-3 text-right font-medium text-slate-800">{p.currentStock} {p.unit}</td>
-                        <td className="py-2 px-3 text-right text-slate-600">{p.reorderLevel}</td>
+                        <td className="py-2.5 px-3 font-mono text-[#71717A]">{p.id}</td>
+                        <td className="py-2.5 px-3 font-bold text-[#18181B]">{p.name}</td>
+                        <td className="py-2.5 px-3 text-[#52525B] font-medium">{p.category}</td>
+                        <td className="py-2.5 px-3 text-right text-[#52525B] font-medium">{formatINR(p.costPrice)}</td>
+                        <td className="py-2.5 px-3 text-right font-extrabold text-[#18181B]">{formatINR(p.sellingPrice)}</td>
+                        <td className="py-2.5 px-3 text-right font-semibold text-[#18181B]">{p.currentStock} {p.unit}</td>
+                        <td className="py-2.5 px-3 text-right text-[#71717A] font-medium">{p.reorderLevel}</td>
                       </tr>
                     ))}
                   </tbody>

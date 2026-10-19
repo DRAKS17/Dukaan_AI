@@ -14,9 +14,6 @@ import {
   Layers,
   ShieldCheck,
   Check,
-  XCircle,
-  Play,
-  RotateCcw,
 } from 'lucide-react';
 import { useStore } from '@/context/StoreContext';
 import { GrowthRecommendation, RecommendationCategory, RecommendationStatus } from '@/types';
@@ -24,7 +21,7 @@ import { GrowthRecommendation, RecommendationCategory, RecommendationStatus } fr
 export default function RecommendationsPage() {
   const { recommendations, updateRecommendationStatus, timeRange } = useStore();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [selectedStatus, setSelectedStatus] = useState<string>('active'); // 'active' = to_do + in_progress
+  const [selectedStatus, setSelectedStatus] = useState<string>('active');
 
   const categories: Array<{ id: string; label: string }> = [
     { id: 'All', label: 'All Opportunities' },
@@ -51,32 +48,32 @@ export default function RecommendationsPage() {
   const getPriorityBadge = (priority: GrowthRecommendation['priority']) => {
     switch (priority) {
       case 'CRITICAL':
-        return 'bg-rose-100 text-rose-800 border-rose-200';
+        return 'bg-[#FEF2F2] text-[#DC2626] border-[#FEE2E2]';
       case 'HIGH':
-        return 'bg-amber-100 text-amber-800 border-amber-200';
+        return 'bg-[#FFFBEB] text-[#D97706] border-[#FEF3C7]';
       case 'MEDIUM':
-        return 'bg-sky-100 text-sky-800 border-sky-200';
+        return 'bg-[#F0F9FF] text-[#0284C7] border-[#BAE6FD]';
       default:
-        return 'bg-slate-100 text-slate-700 border-slate-200';
+        return 'bg-[#F4F4F6] text-[#71717A] border-[#EBEBEF]';
     }
   };
 
   const getCategoryBadge = (cat: RecommendationCategory) => {
     switch (cat) {
       case 'LOW_STOCK':
-        return 'bg-rose-50 text-rose-700';
+        return 'bg-[#FEF2F2] text-[#DC2626]';
       case 'SALES_DECLINE':
-        return 'bg-amber-50 text-amber-700';
+        return 'bg-[#FFFBEB] text-[#D97706]';
       case 'PRODUCT_BUNDLE':
-        return 'bg-indigo-50 text-indigo-700';
+        return 'bg-[#F0F9FF] text-[#0284C7]';
       case 'HIGH_MARGIN_PROMOTION':
-        return 'bg-emerald-50 text-emerald-700';
+        return 'bg-[#ECFDF5] text-[#059669]';
       case 'MARGIN_LEAKAGE':
-        return 'bg-red-50 text-red-700';
+        return 'bg-[#FEF2F2] text-[#DC2626]';
       case 'SLOW_MOVING':
-        return 'bg-purple-50 text-purple-700';
+        return 'bg-[#F3E8FF] text-[#7E22CE]';
       case 'CUSTOMER_RETENTION':
-        return 'bg-cyan-50 text-cyan-700';
+        return 'bg-[#ECFEFF] text-[#0891B2]';
     }
   };
 
@@ -85,28 +82,31 @@ export default function RecommendationsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">AI Growth Recommendations</h1>
-          <p className="text-xs text-slate-500">
+          <h1 className="text-[20px] font-extrabold text-[#18181B] tracking-tight">
+            AI Growth Recommendations
+          </h1>
+          <p className="text-[12px] text-[#71717A] font-medium">
             Actionable interventions prioritized by financial risk and potential business impact
           </p>
         </div>
-        <div className="flex items-center gap-2 text-xs text-slate-600 bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-xs">
-          <ShieldCheck className="w-4 h-4 text-emerald-600" />
-          <span>Rules-backed • Verified Evidence Grounding</span>
+        <div className="flex items-center gap-2 text-[12px] text-[#18181B] bg-white border border-[#EBEBEF] px-3.5 py-1.5 rounded-full font-medium">
+          <ShieldCheck className="w-4 h-4 text-[#10B981]" />
+          <span>Rules-backed • Verified Grounding</span>
         </div>
       </div>
 
-      {/* Category and Status Filter Pills */}
+      {/* Category Pills & Status Filter */}
       <div className="space-y-3">
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+        {/* Category Pills */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-1">
           {categories.map((c) => (
             <button
               key={c.id}
               onClick={() => setSelectedCategory(c.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+              className={`px-3.5 py-1.5 rounded-full text-[12px] font-semibold whitespace-nowrap transition-colors ${
                 selectedCategory === c.id
-                  ? 'bg-slate-900 text-white shadow-xs'
-                  : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                  ? 'bg-[#18181B] text-white'
+                  : 'bg-white text-[#71717A] border border-[#EBEBEF] hover:text-[#18181B]'
               }`}
             >
               {c.label}
@@ -114,23 +114,23 @@ export default function RecommendationsPage() {
           ))}
         </div>
 
+        {/* Status Pills */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs">
-            <span className="text-slate-400 font-medium">Status:</span>
+          <div className="flex items-center gap-1.5 bg-white p-1 rounded-full border border-[#EBEBEF] text-[11px] font-semibold">
             {[
-              { id: 'active', label: 'Active (To Do & In Progress)' },
+              { id: 'active', label: 'Active Pipeline' },
               { id: 'to_do', label: 'To Do' },
               { id: 'in_progress', label: 'In Progress' },
               { id: 'completed', label: 'Completed' },
-              { id: 'all', label: 'All Statuses' },
+              { id: 'all', label: 'All' },
             ].map((st) => (
               <button
                 key={st.id}
                 onClick={() => setSelectedStatus(st.id)}
-                className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all ${
+                className={`px-3 py-1 rounded-full transition-colors ${
                   selectedStatus === st.id
-                    ? 'bg-sky-100 text-sky-800 font-semibold'
-                    : 'text-slate-500 hover:text-slate-800'
+                    ? 'bg-[#18181B] text-white'
+                    : 'text-[#71717A] hover:text-[#18181B]'
                 }`}
               >
                 {st.label}
@@ -138,8 +138,8 @@ export default function RecommendationsPage() {
             ))}
           </div>
 
-          <span className="text-xs text-slate-500 font-medium">
-            Showing {filteredRecs.length} recommendations
+          <span className="text-[12px] text-[#71717A] font-medium">
+            Showing {filteredRecs.length} opportunities
           </span>
         </div>
       </div>
@@ -147,35 +147,31 @@ export default function RecommendationsPage() {
       {/* Recommendation Cards List */}
       <div className="space-y-4">
         {filteredRecs.length === 0 ? (
-          <div className="bg-white rounded-xl border border-slate-200 p-12 text-center">
-            <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto mb-2" />
-            <h3 className="text-sm font-bold text-slate-800">All clear in this category!</h3>
-            <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto">
-              No outstanding issues match your current filters. Check back after next inventory restock or switch filters.
+          <div className="bg-white rounded-[20px] border border-[#EBEBEF] p-12 text-center">
+            <CheckCircle2 className="w-10 h-10 text-[#10B981] mx-auto mb-2" />
+            <h3 className="text-[15px] font-bold text-[#18181B]">All clear in this category!</h3>
+            <p className="text-[12px] text-[#71717A] font-medium mt-1 max-w-md mx-auto">
+              No outstanding issues match your current filters. Switch categories or check back after the next inventory restock.
             </p>
           </div>
         ) : (
           filteredRecs.map((rec) => (
             <div
               key={rec.id}
-              className={`bg-white rounded-xl border transition-all p-5 shadow-xs ${
-                rec.status === 'completed'
-                  ? 'border-emerald-200 bg-emerald-50/20 opacity-80'
-                  : rec.priority === 'CRITICAL'
-                  ? 'border-rose-200 hover:border-rose-300'
-                  : 'border-slate-200 hover:border-slate-300'
+              className={`bg-white rounded-[20px] border border-[#EBEBEF] p-6 transition-colors ${
+                rec.status === 'completed' ? 'opacity-70 bg-[#FAFAF8]' : ''
               }`}
             >
               {/* Card Header */}
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-3.5">
                   <div
-                    className={`p-2 rounded-lg mt-0.5 shrink-0 ${
+                    className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 mt-0.5 border ${
                       rec.priority === 'CRITICAL'
-                        ? 'bg-rose-100 text-rose-700'
+                        ? 'bg-[#FEF2F2] text-[#DC2626] border-[#FEE2E2]'
                         : rec.priority === 'HIGH'
-                        ? 'bg-amber-100 text-amber-700'
-                        : 'bg-sky-100 text-sky-700'
+                        ? 'bg-[#FFFBEB] text-[#D97706] border-[#FEF3C7]'
+                        : 'bg-[#F0F9FF] text-[#0284C7] border-[#BAE6FD]'
                     }`}
                   >
                     <AlertTriangle className="w-4 h-4" />
@@ -183,83 +179,91 @@ export default function RecommendationsPage() {
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
                       <span
-                        className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${getPriorityBadge(
+                        className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${getPriorityBadge(
                           rec.priority
                         )}`}
                       >
                         {rec.priority} Priority
                       </span>
-                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${getCategoryBadge(rec.category)}`}>
+                      <span
+                        className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider ${getCategoryBadge(
+                          rec.category
+                        )}`}
+                      >
                         {rec.category.replace('_', ' ')}
                       </span>
-                      <span className="text-[11px] text-slate-400 font-mono">ID: {rec.id}</span>
+                      <span className="text-[11px] text-[#A1A1AA] font-semibold">{rec.id}</span>
                     </div>
-                    <h3 className="text-base font-bold text-slate-900 mt-1.5">{rec.title}</h3>
-                    <p className="text-xs text-slate-600 mt-0.5">{rec.shortSummary}</p>
+                    <h3 className="text-[16px] font-extrabold text-[#18181B] tracking-tight mt-1.5">
+                      {rec.title}
+                    </h3>
+                    <p className="text-[13px] text-[#52525B] font-medium mt-0.5">{rec.shortSummary}</p>
                   </div>
                 </div>
 
-                {/* Status Toggle Buttons */}
-                <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 p-1 rounded-lg shrink-0 self-start">
-                  {(['to_do', 'in_progress', 'completed', 'dismissed'] as RecommendationStatus[]).map((status) => (
-                    <button
-                      key={status}
-                      onClick={() => updateRecommendationStatus(rec.id, status)}
-                      className={`px-2 py-1 rounded text-[11px] font-medium transition-all ${
-                        rec.status === status
-                          ? status === 'completed'
-                            ? 'bg-emerald-600 text-white font-semibold'
-                            : status === 'in_progress'
-                            ? 'bg-sky-600 text-white font-semibold'
-                            : status === 'dismissed'
-                            ? 'bg-slate-700 text-white font-semibold'
-                            : 'bg-amber-600 text-white font-semibold'
-                          : 'text-slate-600 hover:text-slate-900'
-                      }`}
-                    >
-                      {status === 'to_do'
-                        ? 'To Do'
-                        : status === 'in_progress'
-                        ? 'In Progress'
-                        : status === 'completed'
-                        ? 'Done ✓'
-                        : 'Dismiss'}
-                    </button>
-                  ))}
+                {/* Status Toggle Buttons (CollectiveOS Pill Style) */}
+                <div className="flex items-center gap-1 bg-[#F4F4F6] border border-[#EBEBEF] p-1 rounded-full shrink-0 self-start">
+                  {(['to_do', 'in_progress', 'completed', 'dismissed'] as RecommendationStatus[]).map(
+                    (status) => (
+                      <button
+                        key={status}
+                        onClick={() => updateRecommendationStatus(rec.id, status)}
+                        className={`px-3 py-1 rounded-full text-[11px] font-bold transition-colors ${
+                          rec.status === status
+                            ? status === 'completed'
+                              ? 'bg-[#10B981] text-white'
+                              : status === 'in_progress'
+                              ? 'bg-[#0284C7] text-white'
+                              : status === 'dismissed'
+                              ? 'bg-[#71717A] text-white'
+                              : 'bg-[#18181B] text-white'
+                            : 'text-[#71717A] hover:text-[#18181B]'
+                        }`}
+                      >
+                        {status === 'to_do'
+                          ? 'To Do'
+                          : status === 'in_progress'
+                          ? 'In Progress'
+                          : status === 'completed'
+                          ? 'Done'
+                          : 'Dismiss'}
+                      </button>
+                    )
+                  )}
                 </div>
               </div>
 
               {/* Verified Metrics Strip */}
-              <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2.5 bg-slate-50 p-3 rounded-lg border border-slate-100 text-xs">
+              <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F9F9FB] p-3.5 rounded-xl border border-[#EBEBEF] text-[12px]">
                 {rec.metrics.map((m, idx) => (
                   <div key={idx}>
-                    <p className="text-slate-400 text-[10px] uppercase font-semibold">{m.label}</p>
-                    <p className="font-bold text-slate-800 text-xs mt-0.5">{m.value}</p>
+                    <p className="text-[#A1A1AA] text-[10px] uppercase font-bold tracking-wider">{m.label}</p>
+                    <p className="font-extrabold text-[#18181B] text-[13px] mt-0.5">{m.value}</p>
                   </div>
                 ))}
               </div>
 
               {/* Evidence Points */}
-              <div className="mt-3.5 space-y-1">
-                <p className="text-xs font-semibold text-slate-700">Observed Store Evidence:</p>
-                <ul className="text-xs text-slate-600 space-y-0.5 list-disc list-inside">
+              <div className="mt-4 space-y-1">
+                <p className="text-[12px] font-bold text-[#18181B]">Observed Store Evidence:</p>
+                <ul className="text-[12px] text-[#52525B] font-medium space-y-1 list-disc list-inside leading-relaxed">
                   {rec.evidence.map((ev, i) => (
                     <li key={i}>{ev}</li>
                   ))}
                 </ul>
               </div>
 
-              {/* Action Box */}
-              <div className="mt-3.5 bg-sky-50/70 border border-sky-100 rounded-lg p-3 text-xs">
-                <div className="flex items-start gap-2">
-                  <div className="p-1 rounded bg-sky-600 text-white mt-0.5 shrink-0">
-                    <Check className="w-3 h-3" />
+              {/* Action Callout Box */}
+              <div className="mt-4 bg-[#F0F9FF] border border-[#BAE6FD] rounded-xl p-3.5 text-[12px]">
+                <div className="flex items-start gap-2.5">
+                  <div className="w-5 h-5 rounded-full bg-[#0284C7] text-white flex items-center justify-center mt-0.5 shrink-0">
+                    <Check className="w-3 h-3 stroke-[3]" />
                   </div>
                   <div>
-                    <span className="font-bold text-sky-950">Recommended Action: </span>
-                    <span className="text-sky-900">{rec.suggestedAction}</span>
-                    <p className="text-[11px] text-sky-800/80 mt-1">
-                      <span className="font-semibold">Rationale: </span>
+                    <span className="font-extrabold text-[#0369A1]">Recommended Action: </span>
+                    <span className="text-[#0C4A6E] font-medium">{rec.suggestedAction}</span>
+                    <p className="text-[11px] text-[#0369A1]/90 mt-1 font-medium">
+                      <span className="font-bold">Rationale: </span>
                       {rec.rationale}
                     </p>
                   </div>
@@ -267,15 +271,15 @@ export default function RecommendationsPage() {
               </div>
 
               {/* Card Footer: Impact, Assumptions & AI Shortcut */}
-              <div className="mt-3.5 pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-                <div className="text-slate-500 text-[11px] space-y-0.5">
+              <div className="mt-4 pt-3.5 border-t border-[#EBEBEF] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[12px]">
+                <div className="text-[#71717A] text-[11px] font-medium space-y-0.5">
                   {rec.estimatedImpact && (
-                    <p className="text-emerald-700 font-semibold flex items-center gap-1">
+                    <p className="text-[#059669] font-bold flex items-center gap-1">
                       <TrendingUp className="w-3.5 h-3.5" />
                       Estimated Impact: {rec.estimatedImpact}
                     </p>
                   )}
-                  <p className="text-slate-400">
+                  <p className="text-[#A1A1AA]">
                     Assumptions: {rec.assumptions.join(' ')}
                   </p>
                 </div>
@@ -284,11 +288,11 @@ export default function RecommendationsPage() {
                   href={`/assistant?q=${encodeURIComponent(
                     `Explain the recommendation "${rec.title}" and tell me what steps to take.`
                   )}`}
-                  className="inline-flex items-center gap-1 text-sky-600 hover:text-sky-700 font-semibold self-start sm:self-auto hover:underline"
+                  className="inline-flex items-center gap-1.5 text-[#18181B] hover:text-[#0284C7] font-bold self-start sm:self-auto hover:underline"
                 >
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Discuss with AI Assistant</span>
-                  <ArrowRight className="w-3 h-3" />
+                  <Sparkles className="w-3.5 h-3.5 text-[#EAB308]" />
+                  <span>Discuss with Copilot</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>

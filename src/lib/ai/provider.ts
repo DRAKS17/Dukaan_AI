@@ -18,24 +18,24 @@ export interface AIResponsePayload {
  * Generate a transparent deterministic analytical response when no LLM is configured or available.
  */
 export function generateDeterministicResponse(grounded: GroundedAnalysis): AIResponsePayload {
-  const content = `### 📊 Business Analysis (${grounded.observationWindow})
+  const content = `### Business Analysis (${grounded.observationWindow})
 
 **${grounded.headlineSummary}**
 
 ---
 
-#### 🔍 Verified Facts from Store Records:
+#### Verified Facts from Store Records:
 ${grounded.evidencePoints.map((pt) => `- ${pt}`).join('\n')}
 
 ---
 
-#### 💡 Recommended Action:
+#### Recommended Action:
 > **Action:** ${grounded.suggestedAction}  
 > **Why it matters:** ${grounded.actionRationale}
 
 ---
 
-#### ⚠️ Assumptions & Limitations:
+#### Assumptions & Limitations:
 ${grounded.limitations.map((l) => `- *${l}*`).join('\n')}
 `;
 

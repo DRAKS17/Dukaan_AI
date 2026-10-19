@@ -10,10 +10,7 @@ import {
   ShoppingBag,
   IndianRupee,
   ShieldCheck,
-  MessageSquare,
   Search,
-  Calendar,
-  CheckCircle2,
 } from 'lucide-react';
 import { useStore } from '@/context/StoreContext';
 import { calculateKPISummary } from '@/lib/analytics/engine';
@@ -26,21 +23,6 @@ export default function CustomersPage() {
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const kpis = calculateKPISummary(dataset, timeRange);
-
-  // Group customers by segment
-  const segmentCounts: Record<string, number> = {
-    'VIP / Champion': 0,
-    'Loyal Regular': 0,
-    'Occasional Buyer': 0,
-    'At-Risk / Lapsed': 0,
-    'New Buyer': 0,
-  };
-
-  dataset.customers.forEach((c) => {
-    if (segmentCounts[c.segment] !== undefined) {
-      segmentCounts[c.segment]++;
-    }
-  });
 
   const filteredCustomers = dataset.customers.filter((c) => {
     const matchesSegment = selectedSegment === 'All' || c.segment === selectedSegment;
@@ -58,79 +40,93 @@ export default function CustomersPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">Customer Retention Intelligence</h1>
-          <p className="text-xs text-slate-500">
+          <h1 className="text-[20px] font-extrabold text-[#18181B] tracking-tight">
+            Customer Retention Intelligence
+          </h1>
+          <p className="text-[12px] text-[#71717A] font-medium">
             Cohort loyalty, purchase repeat rate, and re-engagement campaign opportunities
           </p>
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-lg">
+        <div className="flex items-center gap-1.5 text-[12px] text-[#059669] bg-[#ECFDF5] border border-[#D1FAE5] px-3.5 py-1.5 rounded-full font-semibold">
           <ShieldCheck className="w-4 h-4" />
           <span>Pseudonymized Data • Privacy Preserved</span>
         </div>
       </div>
 
-      {/* KPI Cards */}
+      {/* KPI Cards (CollectiveOS Style) */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
-          <p className="text-xs text-slate-500 font-medium">Total Registered Buyers</p>
-          <p className="text-2xl font-black text-slate-900 mt-1">{formatNumber(dataset.customers.length)}</p>
-          <p className="text-xs text-slate-500 mt-1">{kpis.uniqueActiveCustomers} active in {timeRange === '7d' ? '7 days' : timeRange === '30d' ? '30 days' : '90 days'}</p>
+        <div className="bg-white p-5 rounded-[20px] border border-[#EBEBEF]">
+          <p className="text-[11px] font-bold text-[#71717A] uppercase tracking-wider">Registered Buyers</p>
+          <p className="text-[26px] font-extrabold text-[#18181B] tracking-tight mt-1">
+            {formatNumber(dataset.customers.length)}
+          </p>
+          <p className="text-[11px] text-[#71717A] font-medium mt-1">
+            {kpis.uniqueActiveCustomers} active in {timeRange === '7d' ? '7 days' : timeRange === '30d' ? '30 days' : '90 days'}
+          </p>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
-          <p className="text-xs text-slate-500 font-medium">Repeat Customer Rate</p>
-          <p className="text-2xl font-black text-indigo-600 mt-1">{kpis.repeatCustomerRate.toFixed(1)}%</p>
-          <p className="text-xs text-slate-500 mt-1">Placed 2+ orders in window</p>
+        <div className="bg-white p-5 rounded-[20px] border border-[#EBEBEF]">
+          <p className="text-[11px] font-bold text-[#0284C7] uppercase tracking-wider">Repeat Buyer Rate</p>
+          <p className="text-[26px] font-extrabold text-[#0284C7] tracking-tight mt-1">
+            {kpis.repeatCustomerRate.toFixed(1)}%
+          </p>
+          <p className="text-[11px] text-[#71717A] font-medium mt-1">Placed 2+ orders in window</p>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
-          <p className="text-xs text-slate-500 font-medium">At-Risk Lapsed Buyers</p>
-          <p className="text-2xl font-black text-amber-600 mt-1">{atRiskCustomers.length}</p>
-          <p className="text-xs text-amber-700 mt-1 font-medium">Inactive for &gt;21 days</p>
+        <div className="bg-white p-5 rounded-[20px] border border-[#EBEBEF]">
+          <p className="text-[11px] font-bold text-[#D97706] uppercase tracking-wider">Lapsed Regular Buyers</p>
+          <p className="text-[26px] font-extrabold text-[#D97706] tracking-tight mt-1">
+            {atRiskCustomers.length}
+          </p>
+          <p className="text-[11px] text-[#D97706] font-semibold mt-1">Inactive for &gt;21 days</p>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
-          <p className="text-xs text-slate-500 font-medium">Average Order Value</p>
-          <p className="text-2xl font-black text-slate-900 mt-1">{formatINR(kpis.averageOrderValue)}</p>
-          <p className="text-xs text-slate-500 mt-1">Per transaction average</p>
+        <div className="bg-white p-5 rounded-[20px] border border-[#EBEBEF]">
+          <p className="text-[11px] font-bold text-[#71717A] uppercase tracking-wider">Average Order Value</p>
+          <p className="text-[26px] font-extrabold text-[#18181B] tracking-tight mt-1">
+            {formatINR(kpis.averageOrderValue)}
+          </p>
+          <p className="text-[11px] text-[#71717A] font-medium mt-1">Per transaction average</p>
         </div>
       </div>
 
-      {/* Re-engagement Opportunity Banner */}
-      <div className="bg-gradient-to-r from-indigo-900 via-slate-900 to-indigo-950 text-white rounded-xl p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="space-y-1">
+      {/* Re-engagement Campaign Banner (CollectiveOS Dark Surface) */}
+      <div className="bg-[#18181B] text-white rounded-[20px] p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-400/30 px-2 py-0.5 rounded">
+            <span className="text-[10px] font-bold uppercase tracking-wider bg-zinc-800 text-zinc-300 border border-zinc-700 px-2.5 py-0.5 rounded-full">
               Retention Campaign
             </span>
-            <span className="text-xs text-slate-300">{atRiskCustomers.length} Eligible Kirana Customers</span>
+            <span className="text-[12px] text-zinc-400 font-medium">
+              {atRiskCustomers.length} Eligible Kirana Customers
+            </span>
           </div>
-          <h3 className="text-base font-bold text-white">
+          <h3 className="text-[17px] font-extrabold text-white tracking-tight">
             Re-engage Regular Shoppers Before They Shift to Competitors
           </h3>
-          <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
+          <p className="text-[12px] text-zinc-400 max-w-2xl leading-relaxed font-medium">
             These buyers shopped 3+ times previously but haven't visited in over 3 weeks. A targeted reminder for staple goods or free doorstep delivery above ₹300 can recover regular shopping habits.
           </p>
         </div>
         <Link
           href={`/assistant?q=${encodeURIComponent('Which customers have stopped returning and what should I do?')}`}
-          className="self-start md:self-auto flex items-center gap-1.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm transition-all"
+          className="self-start md:self-auto flex items-center gap-2 bg-white text-[#18181B] text-[13px] font-bold px-5 py-2.5 rounded-full hover:bg-zinc-100 transition-colors shrink-0"
         >
-          <Sparkles className="w-4 h-4" />
-          <span>Ask AI Campaign Strategy</span>
+          <Sparkles className="w-3.5 h-3.5 text-[#EAB308]" />
+          <span>Ask Campaign Strategy</span>
         </Link>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="bg-white p-4 rounded-[20px] border border-[#EBEBEF] flex flex-col sm:flex-row items-center justify-between gap-3">
         <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-[#A1A1AA] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search pseudonymous ID or phone..."
-            className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 focus:outline-hidden focus:border-sky-500"
+            placeholder="Search pseudonym ID or phone..."
+            className="w-full pl-10 pr-4 py-2 text-[12px] rounded-full bg-[#F4F4F6] border border-[#EBEBEF] focus:outline-hidden focus:border-[#18181B] font-medium text-[#18181B]"
           />
         </div>
 
@@ -140,10 +136,10 @@ export default function CustomersPage() {
             <button
               key={seg}
               onClick={() => setSelectedSegment(seg)}
-              className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+              className={`px-3.5 py-1.5 rounded-full text-[12px] font-semibold whitespace-nowrap transition-colors ${
                 selectedSegment === seg
-                  ? 'bg-slate-900 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-[#18181B] text-white'
+                  : 'bg-[#F4F4F6] text-[#71717A] hover:text-[#18181B]'
               }`}
             >
               {seg}
@@ -153,10 +149,10 @@ export default function CustomersPage() {
       </div>
 
       {/* Customers Table */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+      <div className="bg-white rounded-[20px] border border-[#EBEBEF] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 border-b border-slate-200">
+            <thead className="bg-[#F4F4F6] text-[#71717A] border-b border-[#EBEBEF]">
               <tr>
                 <th className="py-3 px-4 font-semibold">Pseudonym Identifier</th>
                 <th className="py-3 px-3 font-semibold">Masked Phone</th>
@@ -167,33 +163,33 @@ export default function CustomersPage() {
                 <th className="py-3 px-4 font-semibold text-right">Last Visit</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-[#EBEBEF]">
               {filteredCustomers.slice(0, 50).map((c) => (
-                <tr key={c.id} className="hover:bg-slate-50/80 transition-colors">
+                <tr key={c.id} className="hover:bg-[#F9F9FB] transition-colors">
                   <td className="py-3 px-4">
-                    <p className="font-semibold text-slate-900">{c.displayName}</p>
-                    <p className="text-[10px] text-slate-400 font-mono">{c.id}</p>
+                    <p className="font-bold text-[#18181B] text-[13px]">{c.displayName}</p>
+                    <p className="text-[11px] text-[#A1A1AA] font-semibold">{c.id}</p>
                   </td>
-                  <td className="py-3 px-3 text-slate-600 font-mono">{c.phoneMasked}</td>
+                  <td className="py-3 px-3 text-[#52525B] font-medium">{c.phoneMasked}</td>
                   <td className="py-3 px-3 text-center">
                     <span
-                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${
+                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
                         c.segment === 'At-Risk / Lapsed'
-                          ? 'bg-amber-100 text-amber-800'
+                          ? 'bg-[#FFFBEB] text-[#D97706] border border-[#FEF3C7]'
                           : c.segment === 'VIP / Champion'
-                          ? 'bg-purple-100 text-purple-800'
+                          ? 'bg-[#F3E8FF] text-[#7E22CE] border border-[#E9D5FF]'
                           : c.segment === 'Loyal Regular'
-                          ? 'bg-emerald-100 text-emerald-800'
-                          : 'bg-slate-100 text-slate-700'
+                          ? 'bg-[#ECFDF5] text-[#059669] border border-[#D1FAE5]'
+                          : 'bg-[#F4F4F6] text-[#71717A] border border-[#EBEBEF]'
                       }`}
                     >
                       {c.segment}
                     </span>
                   </td>
-                  <td className="py-3 px-3 text-right font-medium text-slate-800">{c.totalOrders}</td>
-                  <td className="py-3 px-3 text-right font-semibold text-slate-900">{formatINR(c.totalSpend)}</td>
-                  <td className="py-3 px-3 text-right text-slate-500">{c.firstPurchaseDate}</td>
-                  <td className="py-3 px-4 text-right font-medium text-slate-700">{c.lastPurchaseDate}</td>
+                  <td className="py-3 px-3 text-right font-semibold text-[#18181B]">{c.totalOrders}</td>
+                  <td className="py-3 px-3 text-right font-extrabold text-[#18181B]">{formatINR(c.totalSpend)}</td>
+                  <td className="py-3 px-3 text-right text-[#71717A] font-medium">{c.firstPurchaseDate}</td>
+                  <td className="py-3 px-4 text-right font-semibold text-[#18181B]">{c.lastPurchaseDate}</td>
                 </tr>
               ))}
             </tbody>

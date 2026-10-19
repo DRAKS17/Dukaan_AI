@@ -20,13 +20,12 @@ interface CategoryBreakdownChartProps {
 export function CategoryBreakdownChart({ data }: CategoryBreakdownChartProps) {
   if (!data || data.length === 0) {
     return (
-      <div className="h-64 flex items-center justify-center text-slate-400 text-sm">
+      <div className="h-64 flex items-center justify-center text-[#71717A] text-xs font-medium">
         No category data available
       </div>
     );
   }
 
-  // Shorten category names for mobile/chart readability
   const chartData = data.map((d) => ({
     ...d,
     shortName: d.category
@@ -44,20 +43,20 @@ export function CategoryBreakdownChart({ data }: CategoryBreakdownChartProps) {
           layout="vertical"
           margin={{ top: 5, right: 20, left: 25, bottom: 5 }}
         >
-          <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#f1f5f9" />
+          <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#EBEBEF" />
           <XAxis
             type="number"
             tickLine={false}
             axisLine={false}
             tickFormatter={(val) => formatCompactINR(val)}
-            tick={{ fill: '#64748b', fontSize: 11 }}
+            tick={{ fill: '#71717A', fontSize: 11, fontWeight: 500 }}
           />
           <YAxis
             type="category"
             dataKey="shortName"
             tickLine={false}
-            axisLine={{ stroke: '#e2e8f0' }}
-            tick={{ fill: '#334155', fontSize: 11, fontWeight: 500 }}
+            axisLine={{ stroke: '#EBEBEF' }}
+            tick={{ fill: '#18181B', fontSize: 11, fontWeight: 600 }}
             width={75}
           />
           <Tooltip
@@ -65,22 +64,22 @@ export function CategoryBreakdownChart({ data }: CategoryBreakdownChartProps) {
               if (active && payload && payload.length) {
                 const item = payload[0].payload as CategoryBreakdown;
                 return (
-                  <div className="bg-white p-3 rounded-lg shadow-lg border border-slate-200 text-xs">
-                    <p className="font-semibold text-slate-900">{item.category}</p>
-                    <div className="mt-1.5 space-y-1">
-                      <p className="text-sky-700 flex justify-between gap-4 font-medium">
+                  <div className="bg-white p-3 rounded-[16px] border border-[#EBEBEF] text-xs">
+                    <p className="font-bold text-[#18181B] mb-1.5">{item.category}</p>
+                    <div className="space-y-1">
+                      <p className="text-[#0284C7] flex justify-between gap-4 font-bold">
                         <span>Revenue:</span>
                         <span>{formatINR(item.revenue)} ({item.revenueContributionPercent.toFixed(1)}%)</span>
                       </p>
-                      <p className="text-emerald-700 flex justify-between gap-4 font-medium">
+                      <p className="text-[#059669] flex justify-between gap-4 font-bold">
                         <span>Gross Profit:</span>
                         <span>{formatINR(item.profit)}</span>
                       </p>
-                      <p className="text-indigo-700 flex justify-between gap-4">
+                      <p className="text-[#18181B] flex justify-between gap-4 font-semibold">
                         <span>Gross Margin:</span>
                         <span>{item.marginPercent.toFixed(1)}%</span>
                       </p>
-                      <p className="text-slate-500 flex justify-between gap-4">
+                      <p className="text-[#71717A] flex justify-between gap-4 font-medium">
                         <span>Units Sold:</span>
                         <span>{item.unitsSold}</span>
                       </p>
@@ -91,8 +90,8 @@ export function CategoryBreakdownChart({ data }: CategoryBreakdownChartProps) {
               return null;
             }}
           />
-          <Bar dataKey="revenue" fill="#38bdf8" radius={[0, 4, 4, 0]} name="Revenue" />
-          <Bar dataKey="profit" fill="#10b981" radius={[0, 4, 4, 0]} name="Gross Profit" />
+          <Bar dataKey="revenue" fill="#38BDF8" radius={[0, 4, 4, 0]} name="Revenue" />
+          <Bar dataKey="profit" fill="#10B981" radius={[0, 4, 4, 0]} name="Gross Profit" />
         </BarChart>
       </ResponsiveContainer>
     </div>
