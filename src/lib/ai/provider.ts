@@ -101,7 +101,7 @@ Please write a clear, helpful response explaining this to the shopkeeper.`;
 
   // 1. Try Gemini first
   if (geminiKey) {
-    for (const modelName of ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-1.5-pro']) {
+    for (const modelName of ['gemini-3.6-flash', 'gemini-3.7-flash', 'gemini-3.8-flash', 'gemini-1.5-flash']) {
       try {
         const genAI = new GoogleGenerativeAI(geminiKey);
         const model = genAI.getGenerativeModel({ model: modelName });
