@@ -7,7 +7,13 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38bdf8?logo=tailwind-css)](https://tailwindcss.com/)
 [![Tests](https://img.shields.io/badge/Tests-15%2F15%20Passing-emerald)](https://github.com/)
 
+[![Deployment](https://img.shields.io/badge/Vercel-Live%20Demo-black?logo=vercel)](https://dukaanai-seven.vercel.app)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/DRAKS17/Dukaan_AI.git)
+
 **"Understand your shop, discover growth opportunities, and know what to do next — with AI."**
+
+🌐 **Live Demo:** [https://dukaanai-seven.vercel.app](https://dukaanai-seven.vercel.app)  
+💻 **GitHub:** [https://github.com/DRAKS17/Dukaan_AI.git](https://github.com/DRAKS17/Dukaan_AI.git)
 
 DukaanAI is an intelligent business growth copilot engineered for Indian Kirana and small independent retail store owners. Rather than relying on generic chatbots that hallucinate numbers, DukaanAI couples an authoritative analytical engine with conversational AI to deliver mathematically grounded explanations, inventory risk warnings, and actionable recommendations.
 

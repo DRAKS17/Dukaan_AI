@@ -9,6 +9,8 @@
 - **Hackathon Track**: Merchant Growth AI Track
 - **Primary Persona**: Indian Kirana & Neighborhood Retail Store Owner
 - **Live Tech Stack**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, Recharts, Zod, Lucide React, Google Gemini API / Deterministic Grounded Engine
+- **Live Deployment**: https://dukaanai-seven.vercel.app
+- **GitHub Repository**: https://github.com/DRAKS17/Dukaan_AI.git
 
 ---
 
