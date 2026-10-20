@@ -39,14 +39,18 @@ export default function SettingsDataPage() {
     URL.revokeObjectURL(url);
   };
 
-  const handleDownloadSampleOrders = () => {
-    const blob = new Blob([SAMPLE_ORDERS_CSV], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
+  const handleDownloadFullProducts = () => {
     const a = document.createElement('a');
-    a.href = url;
-    a.download = 'dukaanai_sample_orders.csv';
+    a.href = '/dukaanai_inventory_products.csv';
+    a.download = 'dukaanai_inventory_products.csv';
     a.click();
-    URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadSampleOrders = () => {
+    const a = document.createElement('a');
+    a.href = '/dukaanai_store_orders.csv';
+    a.download = 'dukaanai_store_orders.csv';
+    a.click();
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -139,18 +143,25 @@ export default function SettingsDataPage() {
 
           <div className="flex flex-wrap items-center gap-2.5">
             <button
+              onClick={handleDownloadFullProducts}
+              className="flex items-center gap-2 bg-[#18181B] hover:bg-black text-white text-[12px] font-bold px-4 py-2 rounded-full transition-colors"
+            >
+              <Download className="w-3.5 h-3.5 text-white" />
+              <span>Full Inventory CSV (30 Items)</span>
+            </button>
+            <button
               onClick={handleDownloadSampleProducts}
               className="flex items-center gap-2 bg-white hover:bg-[#F4F4F6] text-[#18181B] border border-[#EBEBEF] text-[12px] font-bold px-4 py-2 rounded-full transition-colors"
             >
               <Download className="w-3.5 h-3.5 text-[#0284C7]" />
-              <span>Products Template (.csv)</span>
+              <span>Starter Template (7 Items)</span>
             </button>
             <button
               onClick={handleDownloadSampleOrders}
               className="flex items-center gap-2 bg-white hover:bg-[#F4F4F6] text-[#18181B] border border-[#EBEBEF] text-[12px] font-bold px-4 py-2 rounded-full transition-colors"
             >
               <Download className="w-3.5 h-3.5 text-[#18181B]" />
-              <span>Orders Template (.csv)</span>
+              <span>Orders CSV (.csv)</span>
             </button>
           </div>
         </div>

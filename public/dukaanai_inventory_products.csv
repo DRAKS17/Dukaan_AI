@@ -1,0 +1,31 @@
+product_id,product_name,category,unit,cost_price,selling_price,current_stock,reorder_level,lead_time_days,safety_stock
+PROD-001,Aashirvaad Superior MP Sharbati Atta 5kg,Staples & Grains,bag,215,245,22,15,2,5
+PROD-002,Fortune Sunlite Refined Sunflower Oil 1L Pouch,Staples & Grains,pouch,134,140,28,20,2,8
+PROD-003,Madhur Pure & Hygienic Sugar 1kg,Staples & Grains,packet,42,46,45,25,1,10
+PROD-004,Tata Salt Vacuum Evaporated Iodized 1kg,Staples & Grains,packet,22,28,60,30,1,10
+PROD-005,Tata Sampann Unpolished Toor Dal 1kg,Staples & Grains,packet,148,172,18,12,3,4
+PROD-006,India Gate Basmati Rice Feast Rozzana 1kg,Staples & Grains,packet,82,98,24,15,2,5
+PROD-007,Catch Super Garam Masala 100g,Staples & Grains,box,68,88,14,10,3,4
+PROD-008,Maggi 2-Minute Masala Instant Noodles 4-Pack,Packaged Foods & Snacks,pack,50,60,6,25,2,8
+PROD-009,Parle-G Original Gluco Biscuits 800g Family Pack,Packaged Foods & Snacks,pack,64,80,32,20,2,6
+PROD-010,Britannia Good Day Butter Cookies 600g,Packaged Foods & Snacks,pack,90,120,20,15,2,5
+PROD-011,Lay's India's Magic Masala Potato Chips 50g,Packaged Foods & Snacks,packet,16,20,38,20,1,5
+PROD-012,Kurkure Masala Munch Crispy Snacks 85g,Packaged Foods & Snacks,packet,16,20,35,20,1,5
+PROD-013,Kissan Mixed Fruit Jam 500g Jar,Packaged Foods & Snacks,jar,125,160,11,10,3,3
+PROD-014,Amul Taaza Homogenised Toned Milk 1L,Dairy & Bakery,tetrapack,66,74,5,30,1,10
+PROD-015,Amul Pasteurised Salted Butter 100g,Dairy & Bakery,pack,50,58,16,15,2,5
+PROD-016,Amul Processed Cheese Slices 200g (10 Slices),Dairy & Bakery,pack,120,145,12,10,2,4
+PROD-017,Mother Dairy Malai Paneer 200g,Dairy & Bakery,pack,78,105,8,12,1,4
+PROD-018,English Oven 100% Whole Wheat Bread 400g,Dairy & Bakery,loaf,38,50,9,15,1,5
+PROD-019,Tata Tea Premium Desh Ki Chai 500g,Beverages & Tea,pack,210,275,4,20,3,6
+PROD-020,Brooke Bond Red Label Strong CTC Tea 500g,Beverages & Tea,pack,225,280,18,15,3,5
+PROD-021,Nescafe Classic Instant Coffee Jar 50g,Beverages & Tea,jar,145,185,12,10,3,4
+PROD-022,Bru Instant Coffee Pouch 100g,Beverages & Tea,pouch,175,220,15,12,3,4
+PROD-023,Cadbury Bournvita Chocolate Health Drink 500g,Beverages & Tea,jar,215,260,10,8,3,3
+PROD-024,Dettol Original Germ Protection Bathing Soap 125g (Pack of 3),Personal Care,pack,128,165,24,15,3,5
+PROD-025,Dove Cream Beauty Bathing Bar 100g (Pack of 3),Personal Care,pack,160,210,14,10,3,4
+PROD-026,Colgate MaxFresh Peppermint Ice Toothpaste 150g,Personal Care,tube,88,115,19,15,2,5
+PROD-027,Head & Shoulders Cool Menthol Anti-Dandruff Shampoo 180ml,Personal Care,bottle,140,185,14,10,3,3
+PROD-028,Surf Excel Easy Wash Detergent Powder 1kg,Household Essentials,pouch,118,145,26,18,3,6
+PROD-029,Vim Lemon Dishwash Liquid Gel 500ml Bottle,Household Essentials,bottle,88,115,22,15,2,5
+PROD-030,Lizol Disinfectant Floor Cleaner Citrus 500ml,Household Essentials,bottle,92,118,17,12,2,4
